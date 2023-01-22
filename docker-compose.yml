@@ -8,8 +8,9 @@ services:
         target: /fluentd/etc
       - type: bind
         source: ./fluentd/log
-        target: /fluentd/log
-        
+        target: /fluentd/log   
     ports:
       - 9880:9880
     command: "-c /fluentd/etc/fluent.conf"
+
+  
