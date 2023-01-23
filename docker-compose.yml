@@ -1,6 +1,6 @@
 services:
   fluentd:
-    image: fluent/fluentd:v1.15-1
+    build: ./fluentd
     user: root:root
     volumes:
       - type: bind
@@ -12,5 +12,22 @@ services:
     ports:
       - 9880:9880
     command: "-c /fluentd/etc/fluent.conf"
+
+  minio:
+    image: quay.io/minio/minio
+    volumes:
+      - type: volume
+        source: minio-vol
+        target: /data
+    ports:
+      - 9000:9000
+      - 9090:9090
+    environment:
+      - MINIO_ROOT_USER=root
+      - MINIO_ROOT_PASSWORD=password
+    command: "server /data --console-address ':9090'"
+
+volumes:
+  minio-vol:
 
   
